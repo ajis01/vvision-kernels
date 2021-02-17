@@ -10,5 +10,6 @@
 
 namespace cpu {
     int accumulate(const cv::Mat &src, cv::Mat &dest);
+    int accumulateSquare(const cv::Mat &src, cv::Mat &dest);
     
 }

@@ -38,12 +38,12 @@ int main( int argc, char** argv ) {
   #endif
  
   //OpenCV function
-  cv::accumulate(image, imageGold, cv::noArray());
+  cv::accumulateSquare(image, imageGold, cv::noArray());
 
   //Replicated CPU function(without mask support)
   //cache warmpup
   for(int i=0; i<CACHE_WARMUP; ++i)
-    cpu::accumulate(image, dest);
+    cpu::accumulateSquare(image, dest);
   //reset
   #if GRAY
     dest =  cv::Mat::zeros(image.rows, image.cols, CV_32F);
@@ -53,16 +53,16 @@ int main( int argc, char** argv ) {
 
   {
     cpu::Timer timer;
-    cpu::accumulate(image, dest);
+    cpu::accumulateSquare(image, dest);
   }
 
   cv::absdiff(imageGold, dest, diff);
   // Save the difference image
-  std::string diffImagePath = std::string(std::getenv("OUTPUT")) + std::string(std::string("/accumulate_diff.png"));
+  std::string diffImagePath = std::string(std::getenv("OUTPUT")) + std::string(std::string("/accumulateSquared_diff.png"));
   cv::imwrite(diffImagePath, diff);
 
 
-  std::string outImagePath = std::string(std::getenv("OUTPUT")) + std::string(std::string("/accumulate_out.png"));
+  std::string outImagePath = std::string(std::getenv("OUTPUT")) + std::string(std::string("/accumulateSquared_out.png"));
   cv::imwrite(outImagePath.c_str(), dest);
   #if DEBUG
     cv::namedWindow( "OpenCV Test Program", cv::WINDOW_AUTOSIZE );
