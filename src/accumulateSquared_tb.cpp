@@ -1,7 +1,10 @@
 #include <iostream>
 #include<string>
+#include <opencv2/highgui.hpp>
+#include<opencv2/imgproc.hpp>
 #include"cpu_kernels.h"
 #include"timer.h"
+
 
 #define CACHE_WARMUP 5 
 
@@ -43,7 +46,8 @@ int main( int argc, char** argv ) {
   //Replicated CPU function(without mask support)
   //cache warmpup
   for(int i=0; i<CACHE_WARMUP; ++i)
-    cpu::accumulateSquare(image, dest);
+    cpu::accumulateSquare((float*)image.data, image.rows, image.cols, image.step1(), image.channels(),
+                    (float*)dest.data, dest.rows, dest.cols, dest.step1(), dest.channels());
   //reset
   #if GRAY
     dest =  cv::Mat::zeros(image.rows, image.cols, CV_32F);
@@ -53,7 +57,8 @@ int main( int argc, char** argv ) {
 
   {
     cpu::Timer timer;
-    cpu::accumulateSquare(image, dest);
+    cpu::accumulateSquare((float*)image.data, image.rows, image.cols, image.step1(), image.channels(),
+                    (float*)dest.data, dest.rows, dest.cols, dest.step1(), dest.channels());
   }
 
   cv::absdiff(imageGold, dest, diff);

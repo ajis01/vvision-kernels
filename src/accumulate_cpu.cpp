@@ -4,24 +4,17 @@
 namespace cpu {
 
     //accumalate src into dest with mask
-    int accumulate(const cv::Mat &src, cv::Mat &dest){
+    int accumulate(float const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+                    float* dest, int destRows, int destCols, int destStep, int destChannels){
 
-        assert(src.rows == dest.rows && src.cols == dest.cols && src.channels() == dest.channels());
+        assert(srcRows == destRows && srcCols == destCols && srcStep == destStep && srcChannels==destChannels);
 
-        #if GRAY
-            for(uint i=0; i<src.rows; ++i){
-                for(uint j=0; j<src.cols; ++j){
-                    dest.at<float>(i,j) += src.at<float>(i,j);
-                }
+        for(int i=0; i<srcRows; ++i){
+            for(int j=0; j<srcCols; ++j){
+                for(int k=0; k<srcChannels; ++k)
+                    dest[i*destStep + j*srcChannels + k] += src[i*srcStep + j*srcChannels + k];
             }
-        #else 
-            for(uint i=0; i<src.rows; ++i){
-                for(uint j=0; j<src.cols; ++j){
-                    for(uint k =0; k<src.channels(); ++k)
-                        dest.at<cv::Vec3f>(i,j)[k] += src.at<cv::Vec3f>(i,j)[k];
-                }
-            }
-        #endif
+        }
 
         return KERNEL_SUCCESS;
 

@@ -4,27 +4,20 @@
 namespace cpu {
 
     //accumalate src into dest with mask
-    int accumulateSquare(const cv::Mat &src, cv::Mat &dest){
+    int accumulateSquare(float const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+                    float* dest, int destRows, int destCols, int destStep, int destChannels){
 
-        assert(src.rows == dest.rows && src.cols == dest.cols && src.channels() == dest.channels());
+        assert(srcRows == destRows && srcCols == destCols && srcStep == destStep && srcChannels == destChannels);
 
-        #if GRAY
-            for(uint i=0; i<src.rows; ++i){
-                for(uint j=0; j<src.cols; ++j){
-                    float t = src.at<float>(i,j);
-                    dest.at<float>(i,j) += t*t;
+
+        for(int i=0; i<srcRows; ++i){
+            for(int j=0; j<srcCols; ++j){
+                for(int k=0; k<srcChannels; ++k){
+                    float t = src[i*srcStep + j*srcChannels + k];
+                    dest[i*destStep + j*srcChannels + k] += t*t;
                 }
             }
-        #else 
-            for(uint i=0; i<src.rows; ++i){
-                for(uint j=0; j<src.cols; ++j){
-                    for(uint k =0; k<src.channels(); ++k){
-                        float t = src.at<cv::Vec3f>(i,j)[k];
-                        dest.at<cv::Vec3f>(i,j)[k] += t*t;
-                    }
-                }
-            }
-        #endif
+        }
 
         return KERNEL_SUCCESS;
 
