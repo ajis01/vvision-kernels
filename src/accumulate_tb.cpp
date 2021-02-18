@@ -80,7 +80,7 @@ int main( int argc, char** argv ) {
   int cnt = 0;
   for (int i = 0; i < image.rows; i++) {
       for (int j = 0; j < image.cols; j++) {
-  #if 1
+  #if GRAY
           float v = diff.at<short>(i, j);
           if (v > 0.0f) cnt++;
           if (minval > v) minval = v;
