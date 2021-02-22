@@ -1,5 +1,4 @@
 #include "cpu_kernels.h"
-#include<assert.h>
 
 namespace cpu {
 
@@ -8,11 +7,12 @@ namespace cpu {
                     float* dest, int destRows, int destCols, int destStep, int destChannels){
 
         assert(srcRows == destRows && srcCols == destCols && srcStep == destStep && srcChannels==destChannels);
-
-        for(int i=0; i<srcRows; ++i){
-            for(int j=0; j<srcCols; ++j){
-                for(int k=0; k<srcChannels; ++k)
-                    dest[i*destStep + j*srcChannels + k] += src[i*srcStep + j*srcChannels + k];
+        for(int jj=0; jj<srcCols; jj+=BLOCK_SIZE){
+            for(int i=0; i<srcRows; ++i){
+                for(int j=jj; j<std::min(jj+BLOCK_SIZE,srcCols); ++j){
+                    for(int k=0; k<srcChannels; ++k)
+                        dest[i*destStep + j*srcChannels + k] += src[i*srcStep + j*srcChannels + k];
+                }
             }
         }
 

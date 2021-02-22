@@ -2,6 +2,7 @@
 #include<string>
 #include <opencv2/highgui.hpp>
 #include<opencv2/imgproc.hpp>
+#include"math.h"
 #include"cpu_kernels.h"
 #include"timer.h"
 
@@ -38,6 +39,8 @@ int main( int argc, char** argv ) {
   #else 
     image.convertTo(image, CV_32FC3); 
   #endif
+
+  std::cout << image.rows << " " << image.cols << std::endl;
  
   //OpenCV function
   cv::accumulate(image, imageGold, cv::noArray());
@@ -82,20 +85,20 @@ int main( int argc, char** argv ) {
       for (int j = 0; j < image.cols; j++) {
   #if GRAY
           float v = diff.at<short>(i, j);
-          if (v > 0.0f) cnt++;
+          if (fabs(v) > 0.0f) cnt++;
           if (minval > v) minval = v;
           if (maxval < v) maxval = v;
   #else
           cv::Vec3s v = diff.at<cv::Vec3s>(i, j);
-          if (v[0] > 0.0f) cnt++;
+          if (fabs(v[0]) > 0.0f) cnt++;
           if (minval > v[0]) minval = v[0];
           if (maxval < v[0]) maxval = v[0];
 
-          if (v[1] > 0.0f) cnt++;
+          if (fabs(v[1]) > 0.0f) cnt++;
           if (minval > v[1]) minval = v[1];
           if (maxval < v[1]) maxval = v[1];
 
-          if (v[2] > 0.0f) cnt++;
+          if (fabs(v[2]) > 0.0f) cnt++;
           if (minval > v[2]) minval = v[2];
           if (maxval < v[2]) maxval = v[2];
   #endif
