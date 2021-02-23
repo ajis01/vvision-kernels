@@ -1,7 +1,9 @@
 #pragma once
 #include<assert.h>
 #include<stdint.h>
+#include<cmath>
 #include<algorithm>
+#include<iostream>
 
 #define KERNEL_SUCCESS 0
 #define KERNEL_FAILURE 1
@@ -18,6 +20,10 @@ namespace cpu {
     int accumulateSquare(float const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
                     float* dest, int destRows, int destCols, int destStep, int destChannels);
     int accumulateWeighted(float const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
-                    float* dest, int destRows, int destCols, int destStep, int destChannels, float alpha);
+                    float* dest, int destRows, int destCols, int destStep, int destChannels, float ALPHA);
+    int addWeighted(unsigned char const* src1, int src1Rows, int src1Cols, int src1Step, int src1Channels,
+                    unsigned char const* src2, int src2Rows, int src2Cols, int src2Step, int src2Channels,
+                    unsigned char* dest, int destRows, int destCols, int destStep, int destChannels, 
+                    float ALPHA, float BETA, float GAMMA);
     
 }

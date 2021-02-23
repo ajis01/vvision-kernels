@@ -42,16 +42,16 @@ int main( int argc, char** argv ) {
   std::cout << image.rows << " " << image.cols << std::endl;
 
   //weight 0-1
-  float weight = 0.1;
+  float ALPHA = 0.76;
  
   //OpenCV function
-  cv::accumulateWeighted(image, imageGold, weight, cv::noArray());
+  cv::accumulateWeighted(image, imageGold, ALPHA, cv::noArray());
 
   //Replicated CPU function(without mask support)
   //cache warmpup
   for(int i=0; i<CACHE_WARMUP; ++i){
     cpu::accumulateWeighted((float*)image.data, image.rows, image.cols, image.step1(), image.channels(),
-                    (float*)dest.data, dest.rows, dest.cols, dest.step1(), dest.channels(), weight);
+                    (float*)dest.data, dest.rows, dest.cols, dest.step1(), dest.channels(), ALPHA);
   }
   //reset
   #if GRAY
@@ -63,7 +63,7 @@ int main( int argc, char** argv ) {
   {
     cpu::Timer timer;
     cpu::accumulateWeighted((float*)image.data, image.rows, image.cols, image.step1(), image.channels(),
-                    (float*)dest.data, dest.rows, dest.cols, dest.step1(), dest.channels(), weight);
+                    (float*)dest.data, dest.rows, dest.cols, dest.step1(), dest.channels(), ALPHA);
   }
 
   cv::absdiff(imageGold, dest, diff);

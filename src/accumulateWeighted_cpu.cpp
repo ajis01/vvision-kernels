@@ -4,11 +4,11 @@ namespace cpu {
 
     //accumalate src into dest with mask
     int accumulateWeighted(float const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
-                    float* dest, int destRows, int destCols, int destStep, int destChannels, float alpha){
+                    float* dest, int destRows, int destCols, int destStep, int destChannels, float ALPHA){
 
         assert(srcRows == destRows && srcCols == destCols && srcStep == destStep && srcChannels==destChannels);
 
-        uint32_t temp = (alpha * ((1<<23) - 1));
+        uint32_t temp = (ALPHA * ((1<<23) - 1));
         uint32_t temp1 = ((1<<23) - 1) - temp + 1;
 
         for(int jj=0; jj<srcCols; jj+=BLOCK_SIZE){
