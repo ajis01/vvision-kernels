@@ -27,5 +27,7 @@ namespace cpu {
                     float ALPHA, float BETA, float GAMMA);
     int channelExtract(unsigned char const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
                        unsigned char* dest, int destRows, int destCols, int destStep, uint16_t channel);
+    int sum(float const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+            double* scl);
     
 }
