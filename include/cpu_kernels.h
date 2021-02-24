@@ -7,7 +7,7 @@
 
 #define KERNEL_SUCCESS 0
 #define KERNEL_FAILURE 1
-#define GRAY 1
+#define GRAY 0
 #define DEBUG 0
 #define BLOCK_SIZE 8
 
@@ -25,5 +25,7 @@ namespace cpu {
                     unsigned char const* src2, int src2Rows, int src2Cols, int src2Step, int src2Channels,
                     unsigned char* dest, int destRows, int destCols, int destStep, int destChannels, 
                     float ALPHA, float BETA, float GAMMA);
+    int channelExtract(unsigned char const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+                       unsigned char* dest, int destRows, int destCols, int destStep, uint16_t channel);
     
 }

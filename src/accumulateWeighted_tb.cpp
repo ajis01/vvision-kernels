@@ -42,7 +42,7 @@ int main( int argc, char** argv ) {
   std::cout << image.rows << " " << image.cols << std::endl;
 
   //weight 0-1
-  float ALPHA = 0.76;
+  float ALPHA = 0.5;
  
   //OpenCV function
   cv::accumulateWeighted(image, imageGold, ALPHA, cv::noArray());

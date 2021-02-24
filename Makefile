@@ -9,7 +9,7 @@ INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
 CXXFLAGS ?= $(INC_FLAGS) -std=c++11 `pkg-config --cflags --libs opencv`
 
-all: clean accumulate accumulateSquared accumulateWeighted addWeighted
+all: clean accumulate accumulateSquared accumulateWeighted addWeighted channelExtract
 
 # c++ source
 accumulate: 
@@ -22,6 +22,9 @@ accumulateWeighted:
 	$(CXX) $(SRC_DIR)/$@_cpu.cpp $(SRC_DIR)/$@_tb.cpp -o $(addprefix $(BUILD_DIR)/,$@) $(CXXFLAGS)
 
 addWeighted: 
+	$(CXX) $(SRC_DIR)/$@_cpu.cpp $(SRC_DIR)/$@_tb.cpp -o $(addprefix $(BUILD_DIR)/,$@) $(CXXFLAGS)
+
+channelExtract: 
 	$(CXX) $(SRC_DIR)/$@_cpu.cpp $(SRC_DIR)/$@_tb.cpp -o $(addprefix $(BUILD_DIR)/,$@) $(CXXFLAGS)
 
 .PHONY: clean
