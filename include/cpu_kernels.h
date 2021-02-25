@@ -29,5 +29,8 @@ namespace cpu {
                        unsigned char* dest, int destRows, int destCols, int destStep, uint16_t channel);
     int sum(float const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
             double* scl);
+    int threshold(unsigned char const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+                  unsigned char* dest, int destRows, int destCols, int destStep, int destChannels, 
+                  unsigned char maxval, unsigned char thresh, unsigned char thresh_type);
     
 }
