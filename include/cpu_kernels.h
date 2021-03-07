@@ -7,7 +7,7 @@
 
 #define KERNEL_SUCCESS 0
 #define KERNEL_FAILURE 1
-#define GRAY 0
+#define GRAY 1
 #define DEBUG 0
 #define BLOCK_SIZE 8
 
@@ -45,5 +45,9 @@ namespace cpu {
                     int16_t const* src2, int src2Rows, int src2Cols, int src2Step, int src2Channels,
                     int16_t* dest, int destRows, int destCols, int destStep, int destChannels,
                     normTypeEnum normType);
+                    
+    int lut(unsigned char const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+                  unsigned char* dest, int destRows, int destCols, int destStep, int destChannels, 
+                  unsigned char correctionLut[256]);
 
 }
