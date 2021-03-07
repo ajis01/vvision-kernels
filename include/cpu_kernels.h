@@ -11,6 +11,11 @@
 #define DEBUG 0
 #define BLOCK_SIZE 8
 
+enum normTypeEnum{
+        L1Norm = 0,
+        L2Norm
+};
+
 //Required??
 int inputImageSetup(float* src, float* goldRef, float *ref);
 
@@ -32,5 +37,13 @@ namespace cpu {
     int threshold(unsigned char const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
                   unsigned char* dest, int destRows, int destCols, int destStep, int destChannels, 
                   unsigned char maxval, unsigned char thresh, unsigned char thresh_type);
-    
+    int reduce(unsigned char const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+                  unsigned char* dest, int destRows, int destCols, int destStep, int destChannels, 
+                  unsigned char dimension, unsigned char reduction);
+
+    int magnitude(int16_t const* src1, int src1Rows, int src1Cols, int src1Step, int src1Channels,
+                    int16_t const* src2, int src2Rows, int src2Cols, int src2Step, int src2Channels,
+                    int16_t* dest, int destRows, int destCols, int destStep, int destChannels,
+                    normTypeEnum normType);
+
 }
