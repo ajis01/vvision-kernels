@@ -50,4 +50,8 @@ namespace cpu {
                   unsigned char* dest, int destRows, int destCols, int destStep, int destChannels, 
                   unsigned char correctionLut[256]);
 
+    int gammaCorrection(unsigned char const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+                  unsigned char* dest, int destRows, int destCols, int destStep, int destChannels,
+                  float gammaVal);
+
 }
