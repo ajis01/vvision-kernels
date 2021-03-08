@@ -1,4 +1,4 @@
 *.swp
-*.vscode
+*.vscode*
 output/*
 build/*
