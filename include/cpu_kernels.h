@@ -7,13 +7,26 @@
 
 #define KERNEL_SUCCESS 0
 #define KERNEL_FAILURE 1
-#define GRAY 1
+#define GRAY 0
 #define DEBUG 0
 #define BLOCK_SIZE 8
 
 enum normTypeEnum{
         L1Norm = 0,
         L2Norm
+};
+
+enum ccmTypeEnum{
+        bt2020_bt709 = 0, 
+        bt709_bt2020, 
+        rgb_yuv_601, 
+        rgb_yuv_709, 
+        rgb_yuv_2020, 
+        yuv_rgb_601, 
+        yuv_rgb_709, 
+        yuv_rgb_2020, 
+        full_to_16_235, 
+        full_from_16_235
 };
 
 //Required??
@@ -53,5 +66,14 @@ namespace cpu {
     int gammaCorrection(unsigned char const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
                   unsigned char* dest, int destRows, int destCols, int destStep, int destChannels,
                   float gammaVal);
+
+    int histogram(unsigned char const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+                  unsigned char* dest);
+
+    int colorCorrectionMatrix(unsigned char const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+            unsigned char* dest, int destRows, int destCols, int destStep, int destChannels,
+            ccmTypeEnum ccmType);
+
+
 
 }
