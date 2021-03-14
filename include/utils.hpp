@@ -88,6 +88,39 @@ int dumpImage(const uint16_t* img, int rows, int cols, int step, int channels, s
 
     else return EXIT_FAILURE;
 
+    imgTextFile.close();
+
+    return EXIT_SUCCESS;
+
+
+}
+
+int linearDumpImage(const uint16_t* img, int rows, int cols, int step, int channels, std::string fileName){
+
+    std::ofstream imgTextFile((std::string("lineartextdata/") + fileName).c_str(), std::ios::out);
+    if(imgTextFile.is_open())
+    {
+        // imgTextFile << "Rows" << " " << "Cols" << " " << "Step" << " " << "Channels" << "\n";
+        // imgTextFile << rows << " " << cols << " " << step << " " << channels << "\n";
+        int imgSize = rows*cols*channels;
+        imgTextFile << "image[" << std::to_string(imgSize) << "] = {";
+        for(int i=0; i<rows; ++i){
+            for(int j=0; j<cols; ++j){
+                for(int k=0; k<channels; ++k){
+                    imgTextFile << img[i*cols + j*channels + k] << ", ";  
+                }
+            }
+        }
+
+        long pos = imgTextFile.tellp();
+        imgTextFile.seekp (pos-2);
+        imgTextFile.write (" };",3);
+    }
+
+    else return EXIT_FAILURE;
+
+    imgTextFile.close();
+
     return EXIT_SUCCESS;
 
 
@@ -139,11 +172,13 @@ int createImage(uint16_t* destData, std::string fileName){
         }
     }   
     #if GRAY
-        std::string outImagePath = std::string(std::getenv("OUTPUT")) + std::string("/1080x1920_gray.png");
+        std::string outImagePath = std::string(std::getenv("OUTPUT")) + std::string("/512x768_gray.png");
     #else
-        std::string outImagePath = std::string(std::getenv("OUTPUT")) + std::string("/1080x1920_color.png");
+        std::string outImagePath = std::string(std::getenv("OUTPUT")) + std::string("/512x768_color.png");
     #endif
     cv::imwrite(outImagePath.c_str(), dest);
+
+    imgTextFile.close();
 
     return EXIT_SUCCESS;
 }
