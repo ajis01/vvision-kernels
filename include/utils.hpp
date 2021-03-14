@@ -1,6 +1,7 @@
 #pragma once 
 
 #include <iostream>
+#include <fstream>
 #include <cmath>
 #include <opencv2/highgui.hpp>
 #include<opencv2/imgproc.hpp>
@@ -61,4 +62,88 @@ void analyzeDiff(cv::Mat& diff_img, int err_thresh, float& err_per) {
     std::cout << "\tMinimum error in intensity = " << minval << std::endl;
     std::cout << "\tMaximum error in intensity = " << maxval << std::endl;
     std::cout << "\tPercentage of pixels above error threshold = " << err_per << std::endl;
+}
+
+int dumpImage(const uint16_t* img, int rows, int cols, int step, int channels, std::string fileName){
+
+    std::ofstream imgTextFile((std::string("textdata/") + fileName).c_str(), std::ios::out);
+    if(imgTextFile.is_open())
+    {
+        imgTextFile << "Rows" << " " << "Cols" << " " << "Step" << " " << "Channels" << "\n";
+        imgTextFile << rows << " " << cols << " " << step << " " << channels << "\n";
+        
+        for(int i=0; i<rows; ++i){
+            for(int j=0; j<cols; ++j){
+                for(int k=0; k<channels; ++k){
+                    // std::cout << i << " " << j << " " << k << std::endl;
+                    imgTextFile << img[i*cols + j*channels + k] << " ";  
+                }
+                imgTextFile << "\n";
+
+            }
+            imgTextFile << "\n\n";
+        }
+
+    }
+
+    else return EXIT_FAILURE;
+
+    return EXIT_SUCCESS;
+
+
+}
+
+int createImage(uint16_t* destData, std::string fileName){
+    std::ifstream imgTextFile((std::string("textdata/") + fileName).c_str(), std::ios::in);
+    std::string line;
+    int rows, cols, step, channels;
+    if(imgTextFile.is_open())
+    {
+
+        std::getline(imgTextFile, line); //Rows Cols Steps Channels string
+        std::getline(imgTextFile, line); //Rows Cols Steps Channels values
+        
+        std::stringstream ss(line);
+        ss >> rows;
+        ss >> cols;
+        ss >> step;
+        ss >> channels;
+
+        std::cout << "Read" << std::endl;
+        std::cout << rows << " " << cols << " " << step << " " << channels << "\n";
+
+        for(int i=0; i<rows; ++i){
+            for(int j=0; j<cols; ++j){
+                std::getline(imgTextFile, line);
+                std::stringstream ss1(line);
+                for(int k=0; k<channels; ++k){
+                    ss1 >> destData[i*cols + j*channels + k];
+                }
+            }
+        }
+
+    }
+
+    else EXIT_FAILURE;
+    #if GRAY
+        cv::Mat dest(rows, cols, CV_16SC1);
+    #else
+        cv::Mat dest(rows, cols, CV_16SC3);
+    #endif
+    uint16_t* destPtr = (uint16_t*)dest.data;
+    for(int i=0; i<rows; ++i){
+        for(int j=0; j<cols; ++j){
+            for(int k=0; k<channels; ++k){
+                destPtr[i*cols + j*channels + k] = destData[i*cols + j*channels + k];
+            }
+        }
+    }   
+    #if GRAY
+        std::string outImagePath = std::string(std::getenv("OUTPUT")) + std::string("/1080x1920_gray.png");
+    #else
+        std::string outImagePath = std::string(std::getenv("OUTPUT")) + std::string("/1080x1920_color.png");
+    #endif
+    cv::imwrite(outImagePath.c_str(), dest);
+
+    return EXIT_SUCCESS;
 }
