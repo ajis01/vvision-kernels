@@ -7,7 +7,7 @@
 
 #define KERNEL_SUCCESS 0
 #define KERNEL_FAILURE 1
-#define GRAY 0
+#define GRAY 1
 #define DEBUG 0
 #define BLOCK_SIZE 8
 
@@ -73,6 +73,11 @@ namespace cpu {
     int colorCorrectionMatrix(unsigned char const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
             unsigned char* dest, int destRows, int destCols, int destStep, int destChannels,
             ccmTypeEnum ccmType);
+
+
+    int convertBitdepth(unsigned char const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+                        unsigned char* dest, int destRows, int destCols, int destStep, int destChannels,
+                        int shift, int rtype);
 
 
 
