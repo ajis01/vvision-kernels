@@ -79,6 +79,9 @@ namespace cpu {
                         unsigned char* dest, int destRows, int destCols, int destStep, int destChannels,
                         int shift, int rtype);
 
+    int meanStdDev(unsigned char const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+                        float** meanDSA, float** stdDevDSA, double* sumDSA, double* xDSA);
+
 
 
 }
