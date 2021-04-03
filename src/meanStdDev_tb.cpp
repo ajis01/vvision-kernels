@@ -6,7 +6,7 @@
 #include"timer.h"
 
 
-#define CACHE_WARMUP 1
+#define CACHE_WARMUP 5
 
 template <int CHNLS>
 float* meanCV(cv::Mat& img) {

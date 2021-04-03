@@ -82,6 +82,9 @@ namespace cpu {
     int meanStdDev(unsigned char const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
                         float** meanDSA, float** stdDevDSA, double* sumDSA, double* xDSA);
 
+    int minMaxLoc(unsigned char const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+                        double &minVal, double &maxVal, int &minXLoc, int &minYLoc, int &maxXLoc, int &maxYLoc);
+
 
 
 }
