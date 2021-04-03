@@ -85,6 +85,10 @@ namespace cpu {
     int minMaxLoc(unsigned char const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
                         double &minVal, double &maxVal, int &minXLoc, int &minYLoc, int &maxXLoc, int &maxYLoc);
 
+    int phase(float const* src1, int src1Rows, int src1Cols, int src1Step, int src1Channels,
+              float const* src2, int src2Rows, int src2Cols, int src2Step, int src2Channels,
+              float* dest, int destRows, int destCols, int destStep, int destChannels);
+
 
 
 }
