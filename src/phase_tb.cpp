@@ -76,35 +76,35 @@ int main( int argc, char** argv ) {
     cv::imshow("OpenCV Test Program", writtenImg);
   #endif
 
-  // float ocvminvalue, ocvmaxvalue;
-  // float dsaminvalue=65535, dsamaxvalue=0;
-  // double minval = 65535, maxval = 0;
-  // int cnt = 0;
-  // for (int i = 0; i < image.rows; i++) {
-  //     for (int j = 0; j < image.cols; j++) {
-  //         short int v3 = dest.at<short int>(i, j);
-  //         float v2 = imageGold.at<float>(i, j);
-  //         float v1;
+  float ocvminvalue, ocvmaxvalue;
+  float dsaminvalue=65535, dsamaxvalue=0;
+  double minval = 65535, maxval = 0;
+  int cnt = 0;
+  for (int i = 0; i < image.rows; i++) {
+      for (int j = 0; j < image.cols; j++) {
+          short int v3 = dest.at<short int>(i, j);
+          float v2 = imageGold.at<float>(i, j);
+          float v1;
 
-  //         v1 = v3 / (pow(2.0, 12)); // converting the output fixed point format from Q4.12 format to float
+          v1 = v3 / (pow(2.0, 12)); // converting the output fixed point format from Q4.12 format to float
 
-  //         float v = (v2 - v1);
+          float v = (v2 - v1);
 
-  //         if (v > 1) cnt++;
-  //         if (minval > v) {
-  //             minval = v;
-  //             ocvminvalue = v2;
-  //             dsaminvalue = v1;
-  //         }
-  //         if (maxval < v) {
-  //             maxval = v;
-  //             ocvmaxvalue = v2;
-  //             dsamaxvalue = v1;
-  //         }
-  //     }
-  // }
-  // printf("Minimum value ocv = %f Minimum value dsa = %f\n", ocvminvalue, dsaminvalue);
-  // printf("Maximum value ocv = %f Maximum value dsa = %f\n", ocvmaxvalue, dsamaxvalue);
+          if (v > 1) cnt++;
+          if (minval > v) {
+              minval = v;
+              ocvminvalue = v2;
+              dsaminvalue = v1;
+          }
+          if (maxval < v) {
+              maxval = v;
+              ocvmaxvalue = v2;
+              dsamaxvalue = v1;
+          }
+      }
+  }
+  printf("Minimum value ocv = %f Minimum value dsa = %f\n", ocvminvalue, dsaminvalue);
+  printf("Maximum value ocv = %f Maximum value dsa = %f\n", ocvmaxvalue, dsamaxvalue);
 
   
   cv::waitKey(0);

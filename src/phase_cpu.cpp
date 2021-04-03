@@ -16,7 +16,8 @@ namespace cpu {
                 for(int k=0; k<src1Channels; ++k){
                     float t1 = src1[i*src1Step + j*src1Channels + k];
                     float t2 = src2[i*src1Step + j*src1Channels + k];
-                    dest[i*src1Step + j*src1Channels + k] = std::atan2(t1,t2);
+                    if(t1==0 && t2==0) dest[i*src1Step + j*src1Channels + k] = 0;
+                    else dest[i*src1Step + j*src1Channels + k] = std::atan2(t2,t1);
                 }
             }
         }
