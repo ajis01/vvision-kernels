@@ -9,7 +9,7 @@ INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
 CXXFLAGS ?= $(INC_FLAGS) -std=c++11 `pkg-config --cflags --libs opencv`
 
-all: clean accumulate accumulateSquared accumulateWeighted addWeighted convertBitdepth colorCorrectionMatrix channelExtract fast histogram meanStdDev minMaxLoc lut gammaCorrection magnitude phase sum threshold reduce 
+all: clean accumulate accumulateSquared accumulateWeighted addWeighted convertBitdepth colorCorrectionMatrix channelExtract fast gaussian histogram meanStdDev minMaxLoc lut gammaCorrection magnitude phase sum threshold reduce 
 
 # c++ source
 accumulate: 
@@ -34,6 +34,9 @@ convertBitdepth:
 	$(CXX) $(SRC_DIR)/$@_cpu.cpp $(SRC_DIR)/$@_tb.cpp -o $(addprefix $(BUILD_DIR)/,$@) $(CXXFLAGS)
 
 colorCorrectionMatrix: 
+	$(CXX) $(SRC_DIR)/$@_cpu.cpp $(SRC_DIR)/$@_tb.cpp -o $(addprefix $(BUILD_DIR)/,$@) $(CXXFLAGS)
+
+gaussian: 
 	$(CXX) $(SRC_DIR)/$@_cpu.cpp $(SRC_DIR)/$@_tb.cpp -o $(addprefix $(BUILD_DIR)/,$@) $(CXXFLAGS)
 
 histogram: 

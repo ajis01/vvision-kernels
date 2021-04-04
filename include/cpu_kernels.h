@@ -99,6 +99,9 @@ namespace cpu {
     xy* fast(const byte* im, int xsize, int ysize, int stride, int b, int* ret_num_corners);
     xy* nonmax_suppression(const xy* corners, const int* scores, int num_corners, int* ret_num_nonmax);
 
-
+    int gaussian(float const* src1, int src1Rows, int src1Cols, int src1Step, int src1Channels,
+              float* src2, int src2Rows, int src2Cols, int src2Step, int src2Channels,
+              float* dest, int destRows, int destCols, int destStep, int destChannels,
+              int range);
 
 }
