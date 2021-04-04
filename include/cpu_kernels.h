@@ -29,6 +29,9 @@ enum ccmTypeEnum{
         full_from_16_235
 };
 
+typedef struct { int x, y; } xy; 
+typedef unsigned char byte;
+
 //Required??
 int inputImageSetup(float* src, float* goldRef, float *ref);
 
@@ -88,6 +91,13 @@ namespace cpu {
     int phase(float const* src1, int src1Rows, int src1Cols, int src1Step, int src1Channels,
               float const* src2, int src2Rows, int src2Cols, int src2Step, int src2Channels,
               float* dest, int destRows, int destCols, int destStep, int destChannels);
+
+
+    int fast12_corner_score(const byte* p, const int pixel[], int bstart);
+    xy* fast12_detect(const byte* im, int xsize, int ysize, int stride, int b, int* ret_num_corners);
+    int* fast12_score(const byte* i, int stride, xy* corners, int num_corners, int b);
+    xy* fast(const byte* im, int xsize, int ysize, int stride, int b, int* ret_num_corners);
+    xy* nonmax_suppression(const xy* corners, const int* scores, int num_corners, int* ret_num_nonmax);
 
 
 
