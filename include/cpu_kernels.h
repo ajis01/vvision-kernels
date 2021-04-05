@@ -119,4 +119,7 @@ namespace cpu {
               float* Iy, int IyRows, int IyCols, int IyStep, int IyChannels,
               float* Ixy, int IxyRows, int IxyCols, int IxyStep, int IxyChannels);
 
+    int bgr2grayscale(float const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+                    float* dest, int destRows, int destCols, int destStep, int destChannels);
+
 }
