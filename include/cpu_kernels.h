@@ -108,4 +108,8 @@ namespace cpu {
               float* dest, int destRows, int destCols, int destStep, int destChannels,
               int range);
 
+    int integral(float const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+              float* dest, int destRows, int destCols, int destStep, int destChannels,
+              int range);
+
 }
