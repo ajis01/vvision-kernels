@@ -4,6 +4,7 @@
 #include<cmath>
 #include<algorithm>
 #include<iostream>
+#include<vector>
 
 #define KERNEL_SUCCESS 0
 #define KERNEL_FAILURE 1
@@ -30,6 +31,7 @@ enum ccmTypeEnum{
 };
 
 typedef struct { int x, y; } xy; 
+typedef struct { float cornerResponse; int x, y; } cornerXY; 
 typedef unsigned char byte;
 
 //Required??
@@ -121,5 +123,9 @@ namespace cpu {
 
     int bgr2grayscale(float const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
                     float* dest, int destRows, int destCols, int destStep, int destChannels);
+
+    int nonMaximaSuppression(float const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+                            float* dest, int destRows, int destCols, int destStep, int destChannels,
+                            std::vector<cornerXY> &points, float percentage, int filterRange, int suppressionRadius);
 
 }
