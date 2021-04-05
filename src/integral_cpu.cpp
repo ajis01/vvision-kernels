@@ -10,18 +10,18 @@ namespace cpu {
         // assert(src2Rows == destRows && src2Cols == destCols && src2Step == destStep && src2Channels==destChannels);
         
 
-        dest[0] = image[0];
+        dest[0] = src[0];
 
         for (int i = 1; i < srcCols; i++) {
             dest[i] = 
                 dest[i-1] 
-                + image[i];
+                + src[i];
         }
 
         for (int j = 1; j < srcRows; j++) {
             dest[j*srcStep] = 
                 dest[(j-1)*srcStep] 
-                + image[j*srcStep];
+                + src[j*srcStep];
         }    
 
         for (int i = 1; i < srcRows; i++) {
