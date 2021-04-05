@@ -112,4 +112,11 @@ namespace cpu {
               float* dest, int destRows, int destCols, int destStep, int destChannels,
               int range);
 
+    int derivative(float const* src, int srcRows, int srcCols, int srcStep, int srcChannels,
+              float* derVHelper, int derVHelperRows, int derVHelperCols, int derVHelperStep, int derVHelperChannels,
+              float* derHHelper, int derHHelperRows, int derHHelperCols, int derHHelperStep, int derHHelperChannels,
+              float* Ix, int IxRows, int IxCols, int IxStep, int IxChannels,
+              float* Iy, int IyRows, int IyCols, int IyStep, int IyChannels,
+              float* Ixy, int IxyRows, int IxyCols, int IxyStep, int IxyChannels);
+
 }
